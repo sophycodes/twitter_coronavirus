@@ -27,6 +27,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
+import matplotlib.ticker as ticker
 
 # Korean
 fm.fontManager.addfont('/usr/share/fonts/truetype/baekmuk/batang.ttf')
@@ -49,9 +50,13 @@ plt.figure(figsize=(10,6))
 plt.bar(keys, values)
 
 # label the axes and title
-plt.xlabel('Language/Country')
+if args.input_path.endswith('.lang'):
+    plt.xlabel('Language')
+else:
+    plt.xlabel('Country')
 plt.ylabel('Count')
-plt.title(f'{args.key} by {args.input_path}')
+plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
+plt.title(f'Number of tweets containing {args.key} in 2020')
 
 # rotate x-axis labels so they don't overlap
 plt.xticks(rotation=45)

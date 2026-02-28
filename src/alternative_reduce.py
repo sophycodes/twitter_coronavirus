@@ -15,6 +15,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
+import matplotlib.ticker as ticker
 
 # Korean
 fm.fontManager.addfont('/usr/share/fonts/truetype/baekmuk/batang.ttf')
@@ -63,6 +64,7 @@ for hashtag in args.hashtags:
 # format the plot
 plt.xlabel('Day of Year')
 plt.ylabel('Number of Tweets')
+plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 plt.title('Hashtag Usage Over Time in 2020')
 plt.legend()
 
